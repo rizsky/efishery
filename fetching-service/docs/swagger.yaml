@@ -1,0 +1,153 @@
+definitions:
+  models.DataProducts:
+    properties:
+      area_kota:
+        type: string
+      area_provinsi:
+        type: string
+      komoditas:
+        type: string
+      price:
+        type: string
+      price_usd:
+        type: string
+      size:
+        type: string
+      tgl_parsed:
+        type: string
+      timestamp:
+        type: string
+      uuid:
+        type: string
+    type: object
+  models.DataProductsWithGraph:
+    properties:
+      grafik_data_price:
+        $ref: '#/definitions/models.GraphData'
+        type: object
+      products:
+        items:
+          $ref: '#/definitions/models.DataProducts'
+        type: array
+    type: object
+  models.GraphData:
+    properties:
+      maksimum:
+        type: string
+      median:
+        type: string
+      minimum:
+        type: string
+      rata-rata:
+        type: string
+    type: object
+info:
+  contact: {}
+  license: {}
+paths:
+  /v1/admin/list:
+    get:
+      consumes:
+      - application/json
+      description: get data by param, data graph (mean, median, min, max) below "products" please notice it senpai
+      parameters:
+      - default: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQWRtaW4gRXhjZWxlbmN5IiwicGhvbmUiOiIrNjI4MjI3MjQyMjEyIiwicm9sZSI6ImFkbWluIiwidGltZXN0YW1wIjoiMjAyMC0wNS0yMVQxNDoxMzoyOS4wNDlaIiwiaWF0IjoxNTkwMDcwNDI4fQ.qOoaipBvBQdJOCWxcHeTLjBFhMHg1EEtRHsdzX7dHVk
+        description: Authentication header
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - default: SUMATERA
+        description: area_provinsi
+        in: query
+        name: area_provinsi
+        type: string
+      - default: "2019-11-10T17:00:00.00Z"
+        description: dari_tanggal
+        in: query
+        name: dari_tanggal
+        type: string
+      - default: "2020-08-30T13:35:00Z"
+        description: sampai_tanggal
+        in: query
+        name: sampai_tanggal
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DataProductsWithGraph'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: GET data by param and return it with filter and graphical data by Price
+      tags:
+      - Fetch
+  /v1/list:
+    get:
+      consumes:
+      - application/json
+      description: GET product data and convert price to idr
+      parameters:
+      - default: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRXhjZWxlbmN5IiwicGhvbmUiOiIrNjI4MjI3MjQyMjMyMCIsInJvbGUiOiJ1c2VyIiwidGltZXN0YW1wIjoiMjAyMC0wNS0xOVQwNDo1MzowNS40NDNaIiwiaWF0IjoxNTg5ODY0MDE0fQ.pnQXvaa9vFlIM4AKnptrbzbfztEGPXWU-ISDH-K1Vsg
+        description: Authentication header
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DataProducts'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: GET product data and convert price to idr
+      tags:
+      - Fetch
+  /v1/private-claim:
+    get:
+      consumes:
+      - application/json
+      description: Get Private claim from JWT with data phone, role, name, timestamp
+      parameters:
+      - default: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRXhjZWxlbmN5IiwicGhvbmUiOiIrNjI4MjI3MjQyMjMyMCIsInJvbGUiOiJ1c2VyIiwidGltZXN0YW1wIjoiMjAyMC0wNS0xOVQwNDo1MzowNS40NDNaIiwiaWF0IjoxNTg5ODY0MDE0fQ.pnQXvaa9vFlIM4AKnptrbzbfztEGPXWU-ISDH-K1Vsg
+        description: Authentication header
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: oke
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: GET Private claim from JWT
+      tags:
+      - Auth
+swagger: "2.0"
