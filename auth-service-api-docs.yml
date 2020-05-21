@@ -1,0 +1,76 @@
+info:
+  title: Auth service
+  version: 1.0.0
+  description: API efishery auth
+  contact:
+    name: Muhammad Rizsky
+swagger: '2.0'
+host: "localhost:9000"
+paths:
+  /auth:
+    post:
+      tags:
+        - auth
+      summary: this endpoint for sign in use only on port 9000
+      description: Input phone and password to retrive the jwt token that crafted from mongodb data
+      consumes:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              phone:
+                type: string
+              password:
+                type: string
+      responses:
+        '200':
+          description: jwt is returned in response.
+  /auth/private-claim:
+    get:
+      tags:
+        - auth
+      summary: this endpoint for sign in use only on port 9000
+      description: Input phone and password to retrive the jwt token that crafted from mongodb data
+      consumes:
+        - application/json
+      parameters:
+        - default: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRXhjZWxlbmN5IiwicGhvbmUiOiIrNjI4MjI3MjQyMjMyMCIsInJvbGUiOiJ1c2VyIiwidGltZXN0YW1wIjoiMjAyMC0wNS0xOVQwNDo1MzowNS40NDNaIiwiaWF0IjoxNTg5ODY0MDE0fQ.pnQXvaa9vFlIM4AKnptrbzbfztEGPXWU-ISDH-K1Vsg
+          name: authorization
+          in: header
+          type: string
+      responses:
+        '200':
+          description: jwt is returned in response.
+  /user:
+    post:
+      tags:
+        - user
+      summary: this endpoint for sign up use only on port 9000
+      description: 'Input phone, name and role and get return the password after signup'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              phone:
+                type: string
+              role:
+                type: string
+              name:
+                type: string
+      responses:
+        '201':
+          description: password return.
+definitions: {}
+responses: {}
+parameters: {}
+securityDefinitions: {}
+tags: []
