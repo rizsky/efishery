@@ -1,0 +1,38 @@
+version: '3'
+services:
+  db:
+    build:
+      context: ./
+      dockerfile: ./docker/db/Dockerfile
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    ports: 
+      - 27017:27017
+    expose: 
+      - 27017
+
+  auth_api:
+    build:
+      context: ./
+      dockerfile: ./docker/auth-api/Dockerfile
+    environment:
+      - NODE_ENV=dev
+      - DB_HOST=db
+    volumes:
+      - ./auth-service/src:/home/node/app/src
+    ports:
+      - 9000:9000
+    links:
+      - db
+    depends_on:
+      - db
+
+  fetch_api:
+    build:
+      context: ./
+      dockerfile: ./docker/fetch-api/Dockerfile
+    ports:
+      - 9001:9001
+    command: sh -c "api serve"
+
