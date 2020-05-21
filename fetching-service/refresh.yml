@@ -9,6 +9,6 @@ included_extensions:
 build_path: /tmp
 build_delay: 200ns
 binary_name: refresh-build
-command_flags: []
+command_flags: ["serve"]
 command_env: []
 enable_colors: true

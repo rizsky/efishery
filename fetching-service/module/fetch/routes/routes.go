@@ -22,7 +22,7 @@ func SetupRouter(cache *bigcache.BigCache) *gin.Engine {
 	agregatorServices := services.NewAgregatorServices(efisheryRepo, converterRepo, cacheRepo)
 	handler := handlers.NewHandler(agregatorServices)
 	auth := middlewares.AuthenticationRequired()
-	_ = middlewares.AuthenticationRequired("admin")
+	admin := middlewares.AuthenticationRequired("admin")
 
 	r := gin.Default()
 	v1 := r.Group("/v1")
@@ -33,7 +33,7 @@ func SetupRouter(cache *bigcache.BigCache) *gin.Engine {
 
 	}
 	v1Admin := r.Group("/v1/admin")
-	v1Admin.Use(auth)
+	v1Admin.Use(admin)
 	{
 		v1Admin.GET("list", handler.GetByParam)
 	}
