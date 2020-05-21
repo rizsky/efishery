@@ -20,3 +20,14 @@ detail docs generated in :
 
 ## Notes
 detailed docs (`fetch-service-api-docs.yml`) and (`auth-service-api-docs.yml`) can import for [swagger-online-editor](https://editor.swagger.io/)
+
+
+## Swagger Auth Service Demo ScreenShooted
+
+<a href="https://ibb.co/jWpDNRv"><img src="https://i.ibb.co/gPnJ2VM/image.png"  alt="image"  border="0"></a>
+
+  
+
+## Swagger Fetching Service Demo ScreenShooted
+
+<a href="https://ibb.co/LJbg4Qp"><img src="https://i.ibb.co/D8sM3GK/image.png"  alt="image"  border="0"></a>
